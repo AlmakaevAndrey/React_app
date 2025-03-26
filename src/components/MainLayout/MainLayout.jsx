@@ -11,9 +11,8 @@ export const MainLayout = () => {
       <div className={styles.mainWrapper}>
         <main className={styles.main}>
           <Outlet />
-          main
         </main>
-        <footer className={styles.footer}>footer</footer>
+        <footer className={styles.footer}></footer>
         React Question Cards Application | {currentYear} <br />
         by Almakaev Andrey
       </div>
