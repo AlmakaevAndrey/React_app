@@ -28,7 +28,7 @@ export default [
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "prettier/prettier": [
-        "error",
+        "warn",
         {
           singleQuote: false,
           printWidth: 130,
