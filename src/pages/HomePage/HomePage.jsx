@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { QuestionCardList } from "../../components/QuestionCardList/";
-import { API_URL } from "../../constance/index.js";
+import { QuestionCardList } from "../../components/QuestionCardList";
+import { API_URL } from "../../constance";
+import { Loader } from "../../components/Loader";
 // import cls from "./HomePage.module.css";
 
 export const HomePage = () => {
@@ -29,6 +30,7 @@ export const HomePage = () => {
 
   return (
     <>
+      <Loader />
       <QuestionCardList cards={questions} />
     </>
   );
