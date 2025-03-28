@@ -12,9 +12,10 @@ export const MainLayout = () => {
         <main className={styles.main}>
           <Outlet />
         </main>
-        <footer className={styles.footer}></footer>
-        React Question Cards Application | {currentYear} <br />
-        by Almakaev Andrey
+        <footer className={styles.footer}>
+          React Question Cards Application | {currentYear} <br />
+          by Almakaev Andrey
+        </footer>
       </div>
     </div>
   );
