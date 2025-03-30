@@ -14,10 +14,11 @@ export const HomePage = () => {
   const [questions, setQuestions] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [sortSelectValue, setSortSearchValue] = useState("");
+  const [countSelectValue, setCountSelectValue] = useState("");
 
   const controlsContainerRef = useRef();
 
-  const getActivePageNumber = () => (getQuestions.next === null ? questions.last : questions.next - 1)
+  const getActivePageNumber = () => (getQuestions.next === null ? questions.last : questions.next - 1);
 
   const [getQuestions, isLoading, error] = useFetch(async (url) => {
     const response = await fetch(`${API_URL}/${url}`);
@@ -50,27 +51,32 @@ export const HomePage = () => {
     getQuestions(`react${searchParams}`);
   }, [searchParams]);
 
-  const onSearchValueHandler = (e) => {
+  const onSearchChangeHandler = (e) => {
     setSearchValue(e.target.value);
   };
 
   const onSortSelectChangeHandler = (e) => {
     setSortSearchValue(e.target.value);
 
-    setSearchParams(`?_page=1&_per_page=${DEFAULT_PER_PAGE}&${e.target.value}`);
+    setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
   };
 
   const paginationHandler = (e) => {
     if (e.target.tagName === "BUTTON") {
-      setSearchParams(`?_page=${e.target.textContent}&_per_page=${DEFAULT_PER_PAGE}&${sortSelectValue}`);
-      controlsContainerRef.current.scrollIntoView({ behavior: "smooth"})
+      setSearchParams(`?_page=${e.target.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`);
+      controlsContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const onCountSelectChangeHandler = (e) => {
+    setCountSelectValue(e.target.value);
+    setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
   };
 
   return (
     <>
       <div className={cls.controlsContainer} ref={controlsContainerRef}>
-        <SearchInput value={searchValue} onChange={onSearchValueHandler} />
+        <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
 
         <select value={sortSelectValue} onChange={onSortSelectChangeHandler} className={cls.select}>
           <option value="">sort by</option>
@@ -80,25 +86,38 @@ export const HomePage = () => {
           <option value="_sort=completed">completed ASC</option>
           <option value="_sort=-completed">completed DESC</option>
         </select>
+
+        <select value={countSelectValue} onChange={onCountSelectChangeHandler} className={cls.select}>
+          <option disabled>count</option>
+          <hr />
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
 
-      <div className={cls.resultContainer}>
-        {isLoading && <Loader />}
-        {error && <p>{error}</p>}
-        {cards.length === 0 && <p className={cls.noCardInfo}>No cards...</p>}
-      </div>
+      {isLoading && <Loader />}
+      {error && <p>{error}</p>}
 
       <QuestionCardList cards={cards} />
 
-      <div className={cls.paginationContainer} onClick={paginationHandler}>
-        {pagination.map((value) => {
-          return (
-            <Button key={value} isActive={value === getActivePageNumber()}>
-              {value}
-            </Button>
-          );
-        })}
-      </div>
+      {cards.length === 0 ? (
+        <p className={cls.noCardInfo}>No cards...</p>
+      ) : (
+        pagination.length > 1 && (
+          <div className={cls.paginationContainer} onClick={paginationHandler}>
+            {pagination.map((value) => {
+              return (
+                <Button key={value} isActive={value === getActivePageNumber()}>
+                  {value}
+                </Button>
+              );
+            })}
+          </div>
+        )
+      )}
     </>
   );
 };
