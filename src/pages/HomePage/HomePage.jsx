@@ -13,12 +13,12 @@ export const HomePage = () => {
   const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
   const [questions, setQuestions] = useState({});
   const [searchValue, setSearchValue] = useState("");
-  const [sortSelectValue, setSortSearchValue] = useState("");
+  const [sortSelectValue, setSortSelectValue] = useState("");
   const [countSelectValue, setCountSelectValue] = useState("");
 
   const controlsContainerRef = useRef();
 
-  const getActivePageNumber = () => (getQuestions.next === null ? questions.last : questions.next - 1);
+  const getActivePageNumber = () => (questions.next === null ? questions.last : questions.next - 1);
 
   const [getQuestions, isLoading, error] = useFetch(async (url) => {
     const response = await fetch(`${API_URL}/${url}`);
@@ -56,7 +56,7 @@ export const HomePage = () => {
   };
 
   const onSortSelectChangeHandler = (e) => {
-    setSortSearchValue(e.target.value);
+    setSortSelectValue(e.target.value);
 
     setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
   };

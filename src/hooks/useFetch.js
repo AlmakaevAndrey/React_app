@@ -15,7 +15,8 @@ export const useFetch = (callback) => {
 
       return response;
     } catch (error) {
-      setError(error.massage);
+      setError(error.message);
+      throw error;
     } finally {
       setIsLoading(false);
     }
