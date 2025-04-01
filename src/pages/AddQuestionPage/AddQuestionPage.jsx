@@ -1,5 +1,6 @@
 import { useActionState } from "react";
 import { Button } from "../../components/Button";
+import { Loader } from "../../components/Loader";
 import cls from "./AddQuestionPage.module.css";
 import { delayFn } from "../../helpers/delayFn";
 import { toast } from "react-toastify";
@@ -11,9 +12,7 @@ const createCardAction = async (_prevState, formDate) => {
 
     const newQuestion = Object.fromEntries(formDate);
     const resources = newQuestion.resources.trim();
-    const isClearForm = newQuestion.clearForm;
-    // console.log("formData", Object.fromEntries(formDate));
-    // console.log("question", formDate.get("question"));
+    const isClearForm = newQuestion.clearForm; //formDate.get("clearForm"))
 
     const response = await fetch(`${API_URL}/react`, {
       method: "POST",
@@ -24,23 +23,30 @@ const createCardAction = async (_prevState, formDate) => {
         resources: resources.length ? resources.split(",") : [],
         level: Number(newQuestion.level),
         completed: false,
-        editDate: undefined
+        editDate: undefined,
       }),
     });
+
+    if (response.status === 404) {
+      throw new Error(response.statusText);
+    }
+
     const question = response.json();
     toast.success("New question is successfully created!");
 
     return isClearForm ? {} : question;
   } catch (error) {
     toast.error(error.message);
+    return {};
   }
 };
 
-export const AddQuestionPage = () => {
+const AddQuestionPage = () => {
   const [formState, formAction, isPending] = useActionState(createCardAction, { clearForm: true });
 
   return (
     <>
+      {isPending && <Loader />}
       <h1 className={cls.formTitle}>Add new question</h1>
 
       <div className={cls.formContainer}>
@@ -89,7 +95,6 @@ export const AddQuestionPage = () => {
               id="resourcesField"
               cols="30"
               rows="5"
-              required
               placeholder="please enter resources separated by commas"
             ></textarea>
           </div>
@@ -121,3 +126,5 @@ export const AddQuestionPage = () => {
     </>
   );
 };
+
+export default AddQuestionPage;
