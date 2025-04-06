@@ -3,9 +3,11 @@ import { Loader } from "../../components/Loader";
 import { QuestionForm } from "../../components/QuestionForm";
 import cls from "./EditQuestionPage.module.css";
 import { delayFn } from "../../helpers/delayFn";
+import { dateFormat } from "../../helpers/dateFormat";
 import { API_URL } from "../../constance";
 import { toast } from "react-toastify";
-import { dateFormat } from "../../helpers/dateFormat";
+import { useNavigate } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
 const editCardAction = async (_prevState, formDate) => {
   try {
@@ -44,15 +46,43 @@ const editCardAction = async (_prevState, formDate) => {
 };
 
 export const EditQuestion = ({ initialState = {} }) => {
+  const navigate = useNavigate();
   const [formState, formAction, isPending] = useActionState(editCardAction, { ...initialState, clearForm: false });
+
+  const [removeQuestion, isQuestionRemoving] = useFetch(async () => {
+    await fetch(`${API_URL}/react/${initialState.id}`, {
+      method: "DELETE",
+    });
+
+    toast.success("The question has been successfully remove!");
+    navigate("/");
+  });
+
+  const onRemoveQuestionHandler = () => {
+    const isRemove = confirm("Are you sure?");
+
+    isRemove && removeQuestion();
+  };
 
   return (
     <>
-      {isPending && <Loader />}
+      {(isPending || isQuestionRemoving) && <Loader />}
+
       <h1 className={cls.formTitle}> Edit question</h1>
 
       <div className={cls.formContainer}>
-        <QuestionForm formAction={formAction} state={formState} isPending={isPending} submitBtnText={"Edit question"} />
+        <button className={cls.removeBtn} disabled={isPending || isQuestionRemoving} onClick={onRemoveQuestionHandler}>
+          X
+        </button>
+      </div>
+
+      <div className={cls.formContainer}>
+        <QuestionForm
+          formAction={formAction}
+          state={formState}
+          isPending={isPending || isQuestionRemoving}
+          submitBtnText={"Edit question"}
+        />
       </div>
     </>
   );

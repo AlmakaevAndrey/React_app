@@ -1,19 +1,6 @@
 {
   "react": [
     {
-      "id": "1",
-      "question": "Что такое React?",
-      "answer": "React — это библиотека для создания пользовательских интерфейсов.",
-      "description": "React — это JavaScript-библиотека, разработанная Facebook, которая используется для построения UI с компонентным подходом. React позволяет вам создавать пользовательские интерфейсы из отдельных частей, называемых компонентами.",
-      "resources": [
-        "https://react.dev",
-        "https://react.dev/reference/react"
-      ],
-      "level": 1,
-      "completed": true,
-      "editDate": "03.02.2025, 19:49"
-    },
-    {
       "id": "2",
       "question": "Что такое JSX?",
       "answer": "JSX — это синтаксическое расширение JavaScript для React.",
@@ -576,6 +563,15 @@
       "level": 1,
       "completed": false,
       "editDate": "06.04.2025, 15:26"
+    },
+    {
+      "id": "fae3",
+      "question": "jkkj",
+      "answer": "lmklk",
+      "description": ",lll",
+      "resources": [],
+      "level": 3,
+      "completed": true
     }
   ]
 }
