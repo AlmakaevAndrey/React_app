@@ -2,9 +2,9 @@ import { Button } from "../Button";
 import cls from "./QuestionForm.module.css";
 
 export const QuestionForm = ({ formAction, state, isPending, submitBtnText }) => {
-  console.log(state.resources);
   return (
     <form action={formAction} className={cls.form}>
+      <input type="text" name="questionId" hidden defaultValue={state.id}/>
       <div className={cls.formControl}>
         <label htmlFor="questionField">Question:</label>
         <textarea

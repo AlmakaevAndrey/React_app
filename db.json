@@ -567,14 +567,15 @@
     },
     {
       "id": "5ea4",
-      "question": "hello",
-      "answer": "short",
+      "question": "hello world!",
+      "answer": "short!",
       "description": "about",
       "resources": [
         "https://ya.ru"
       ],
       "level": 1,
-      "completed": false
+      "completed": false,
+      "editDate": "06.04.2025, 15:26"
     }
   ]
 }
