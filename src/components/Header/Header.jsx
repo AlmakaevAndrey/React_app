@@ -1,10 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import ReactLogo from "../../assets/react.svg";
+import { useAuth } from "../../hooks/useAuth";
 import { Button } from "../Button";
+import { AUTH_STORAGE } from "../../constance";
 import cls from "./Header.module.css";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { isAuth, setIsAuth } = useAuth();
+
+  const loginHandler = () => {
+    localStorage.setItem(AUTH_STORAGE, !isAuth);
+    setIsAuth(!isAuth);
+  };
 
   return (
     <header className={cls.header}>
@@ -12,11 +20,17 @@ export const Header = () => {
         <img src={ReactLogo} alt="react logo" />
         <span>ReactCard</span>
       </p>
+
       <div className={cls.headerButtons}>
-        <Button isActive={true} onClick={() => navigate("/addquestion")}>
-          Add
+        {isAuth && (
+          <Button isActive={true} onClick={() => navigate("/addquestion")}>
+            Add
+          </Button>
+        )}
+
+        <Button onClick={loginHandler} isActive={!isAuth}>
+          {isAuth ? "Logout" : "Login"}
         </Button>
-        <Button>LogIn</Button>
       </div>
     </header>
   );
