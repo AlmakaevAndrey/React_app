@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Button } from "../Button";
 import { AUTH_STORAGE } from "../../constance";
 import cls from "./Header.module.css";
+import { ThemeToggler } from "../../features/ThemeToggler";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export const Header = () => {
       </p>
 
       <div className={cls.headerButtons}>
+        <ThemeToggler />
+
         {isAuth && (
           <Button isActive={true} onClick={() => navigate("/addquestion")}>
             Add
