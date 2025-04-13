@@ -35,6 +35,7 @@ export default [
           singleQuote: false,
           printWidth: 130,
           tabWidth: 2,
+          endOfLine: "auto",
         },
       ],
     },
