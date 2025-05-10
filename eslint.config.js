@@ -26,6 +26,8 @@ export default [
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
+      "react/display-name": "off",
+      "no-console": "warn",
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "prettier/prettier": [
         "warn",
@@ -33,6 +35,7 @@ export default [
           singleQuote: false,
           printWidth: 130,
           tabWidth: 2,
+          endOfLine: "auto",
         },
       ],
     },
