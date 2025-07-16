@@ -33,7 +33,7 @@
 
 .cardAnswer {
     font-size: 14px;
-    filter: blur(4px);
+    /* filter: blur(4px); */
     font-style: italic;
     text-align: justify;
     cursor: pointer;

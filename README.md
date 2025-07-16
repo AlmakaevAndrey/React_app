@@ -1,12 +1,27 @@
-# React + Vite
+# React App (Vite + React 19 + TypeScript + json-server)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Фронтенд-проект на базе React + TS и Vite с возможностью локального REST API с помощью `json-server`.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Возможности
 
-## Expanding the ESLint configuration
+- React 19 + React Router v7
+- Уведомления через `react-toastify`
+- Локальный mock-сервер через `json-server`
+- Быстрая сборка и запуск с помощью Vite
+- ESLint + Prettier (в dev-зависимостях)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Установка и запуск
+
+1. Клонировать репозиторий:
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
+npm run dev
+npm run server (http://localhost:8801)
+
